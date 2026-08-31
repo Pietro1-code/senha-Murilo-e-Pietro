@@ -1,58 +1,62 @@
-const campoSenha =
-    document.querySelector("#campo-senha");
+const campoSenha = document.querySelector("#campo-senha");
+const numeroSenha = document.querySelector("#numero-senha");
+const checkboxMaiusculas = document.querySelector("#usar-maiusculas");
+const checkboxNumeros = document.querySelector("#usar-numeros");
+const checkboxSimbolos = document.querySelector("#usar-simbolos");
 
-const numeroSenha =
-    document.querySelector("#numero-senha");
-
-const letrasMaiusculas =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-const simbolos = 
-    "#$%&*+-@?!";
+const letrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const numeros = "0123456789";
+const simbolos = "#$%&*+-@?!";
 
 let tamanhoSenha = 8;
-geraSenha();
+
+function atualizaTamanhoNaTela() {
+  numeroSenha.textContent = tamanhoSenha;
+}
 
 function geraSenha() {
+  let caracteres = "";
 
-    let senha = "";
-      if(checkbox.[0].checked) {
+  if (checkboxMaiusculas.checked) caracteres += letrasMaiusculas;
+  if (checkboxNumeros.checked) caracteres += numeros;
+  if (checkboxSimbolos.checked) caracteres += simbolos;
 
-         senha += letrasMaiusculas[
-           Match.Floor(match.random(letrasMaiusculas.leight))
+  if (caracteres.length === 0) {
+    campoSenha.value = "";
+    return;
+  }
 
-    for (let i = 0; i < tamanhoSenha; i++) {
+  let senha = "";
 
-       let numeroAleatorio =
-           Math.random() * letrasMaiusculas.length;
+  for (let i = 0; i < tamanhoSenha; i++) {
+    const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+    senha += caracteres[indiceAleatorio];
+  }
 
-       numeroAleatorio =
-           Math.floor(numeroAleatorio);
-
-senha =
-   senha +
-   letrasMaiusculas[numeroAleatorio];
-   
+  campoSenha.value = senha;
 }
 
-   campoSenha.value = senha;
-}
+[checkboxMaiusculas, checkboxNumeros, checkboxSimbolos].forEach((checkbox) => {
+  checkbox.addEventListener("change", geraSenha);
+});
 
 function diminuiTamanho() {
-   if (tamanhoSenha > 1) {
-senha = senha +
-   simbolos[letrasMaiusculas & numeroAleatorio]
+  if (tamanhoSenha > 1) {
+    tamanhoSenha--;
+  }
 
-      tamanhoSenha--;
-}
-   numeroSenha.textContent = tamanhoSenha;
+  atualizaTamanhoNaTela();
   geraSenha();
 }
 
 function aumentaTamanho() {
-if (tamanhoSenha < 20) {
+  if (tamanhoSenha < 20) {
     tamanhoSenha++;
-}
-  numeroSenha.textContent = tamanhoSenha;
+  }
+
+  atualizaTamanhoNaTela();
   geraSenha();
 }
+
+atualizaTamanhoNaTela();
+geraSenha();
