@@ -3,6 +3,7 @@ const numeroSenha = document.querySelector("#numero-senha");
 const checkboxMaiusculas = document.querySelector("#usar-maiusculas");
 const checkboxNumeros = document.querySelector("#usar-numeros");
 const checkboxSimbolos = document.querySelector("#usar-simbolos");
+const statusSenha = document.querySelector("#status-senha");
 
 const letrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const numeros = "0123456789";
@@ -14,6 +15,54 @@ function atualizaTamanhoNaTela() {
   numeroSenha.textContent = tamanhoSenha;
 }
 
+function temSequencia(senha) {
+  if (!senha || senha.length < 5) return false;
+
+  const texto = senha.toUpperCase();
+
+  for (let i = 0; i <= texto.length - 5; i++) {
+    const bloco = texto.slice(i, i + 5);
+
+    if (/^[A-Z]+$/.test(bloco) || /^[0-9]+$/.test(bloco)) {
+      const valores = bloco.split("").map((caractere) => {
+        if (/^[0-9]$/.test(caractere)) {
+          return Number(caractere);
+        }
+        return caractere.charCodeAt(0);
+      });
+
+      let sequencia = true;
+
+      for (let j = 1; j < valores.length; j++) {
+        const diferenca = Math.abs(valores[j] - valores[j - 1]);
+        if (diferenca !== 1) {
+          sequencia = false;
+          break;
+        }
+      }
+
+      if (sequencia) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+function senhaAprovada(senha) {
+  if (!senha || senha.length < 8) return false;
+  if (temSequencia(senha)) return false;
+  return true;
+}
+
+function atualizaStatusNaTela() {
+  const aprovado = senhaAprovada(campoSenha.value);
+
+  statusSenha.textContent = `Senha aprovada: ${aprovado}`;
+  statusSenha.style.color = aprovado ? "green" : "red";
+}
+
 function geraSenha() {
   let caracteres = "";
 
@@ -23,7 +72,8 @@ function geraSenha() {
 
   if (caracteres.length === 0) {
     campoSenha.value = "";
-    return;
+    atualizaStatusNaTela();
+    return false;
   }
 
   let senha = "";
@@ -34,6 +84,9 @@ function geraSenha() {
   }
 
   campoSenha.value = senha;
+  atualizaStatusNaTela();
+
+  return senhaAprovada(senha);
 }
 
 [checkboxMaiusculas, checkboxNumeros, checkboxSimbolos].forEach((checkbox) => {
