@@ -1,5 +1,3 @@
-Pietro n 36
-Alan n 2 3J
 const campoSenha = document.querySelector("#campo-senha");
 const numeroSenha = document.querySelector("#numero-senha");
 const checkboxMaiusculas = document.querySelector("#usar-maiusculas");
@@ -96,7 +94,7 @@ function geraSenha() {
 });
 
 function diminuiTamanho() {
-  if (tamanhoSenha > 1) {
+  if (tamanhoSenha > 8) {
     tamanhoSenha--;
   }
 
