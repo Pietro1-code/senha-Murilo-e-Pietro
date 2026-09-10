@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+	--fundo: #081c24;
+	--painel: #102d36;
+	--painel-claro: #163a44;
+	--texto: #e8f2ec;
+	--texto-suave: #9fb7b4;
+	--menta: #9cf0c4;
+	--menta-escura: #2f9e72;
+	--borda: rgba(156, 240, 196, 0.16);
+	--mono: "Space Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-height: 100%; margin: 0; }
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	padding: 32px 20px;
+	color: var(--texto);
+	font-family: "DM Sans", sans-serif;
+	background: var(--fundo);
+	background-image: linear-gradient(135deg, rgba(156, 240, 196, 0.08), transparent 38%),
+		repeating-linear-gradient(115deg, transparent 0 50px, rgba(255, 255, 255, 0.02) 51px 52px);
+}
+
+.container { width: min(100%, 500px); animation: aparecer 0.55s ease both; }
+.cabecalho { margin-bottom: 24px; }
+.etiqueta, .titulo-secao { color: var(--menta); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+h1 { margin: 10px 0 6px; font-size: clamp(32px, 8vw, 48px); letter-spacing: -1.5px; line-height: 1; }
+h1 span { color: var(--menta); }
+.cabecalho p { margin: 0; color: var(--texto-suave); font-size: 15px; }
+
+.painel {
+	padding: clamp(22px, 5vw, 32px);
+	border: 1px solid var(--borda);
+	border-radius: 14px;
+	background: linear-gradient(145deg, rgba(22, 58, 68, 0.96), rgba(12, 39, 48, 0.96));
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+}
+
+.rotulo-senha { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; color: var(--texto-suave); font-size: 13px; font-weight: 600; }
+.icone-cadeado { font-size: 14px; filter: grayscale(1); opacity: 0.7; }
+#campo-senha { width: 100%; padding: 18px 16px; overflow: hidden; border: 1px solid rgba(156, 240, 196, 0.35); border-radius: 8px; outline: none; color: var(--menta); font-family: var(--mono); font-size: clamp(17px, 4vw, 21px); text-align: center; text-overflow: ellipsis; background: rgba(3, 19, 25, 0.55); box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.16); }
+.configuracoes { margin: 28px 0 20px; }
+.titulo-secao { margin-bottom: 12px; color: var(--texto-suave); font-size: 10px; }
+.opcoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.opcoes label { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 9px 10px; border: 1px solid var(--borda); border-radius: 7px; color: var(--texto-suave); font-size: 12px; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+.opcoes label:has(input:checked) { border-color: rgba(156, 240, 196, 0.5); color: var(--texto); background: rgba(156, 240, 196, 0.08); }
+.opcoes input { accent-color: var(--menta-escura); }
+#status-senha { min-height: 20px; margin: 0 0 20px; font-family: var(--mono); font-size: 11px; text-align: center; }
+.controle-tamanho { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; color: var(--texto-suave); font-size: 13px; }
+.contador { display: flex; align-items: center; gap: 14px; }
+button { border: 0; cursor: pointer; font: inherit; }
+.contador button { width: 30px; height: 30px; border: 1px solid var(--borda); border-radius: 50%; color: var(--menta); font-size: 20px; line-height: 1; background: transparent; transition: background 0.2s, transform 0.2s; }
+.contador button:hover { background: rgba(156, 240, 196, 0.12); transform: translateY(-1px); }
+#numero-senha { min-width: 24px; color: var(--texto); font-family: var(--mono); font-weight: 700; text-align: center; }
+.botao-gerar { width: 100%; padding: 14px 18px; border-radius: 7px; color: #09221a; font-weight: 700; background: var(--menta); transition: box-shadow 0.2s, transform 0.2s; }
+.botao-gerar:hover { box-shadow: 0 8px 24px rgba(156, 240, 196, 0.2); transform: translateY(-2px); }
+.botao-gerar span { margin-right: 5px; }
+footer { margin-top: 16px; color: rgba(159, 183, 180, 0.65); font-size: 11px; text-align: center; }
+
+@keyframes aparecer {
+	from { opacity: 0; transform: translateY(12px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 430px) {
+	.opcoes { grid-template-columns: 1fr; }
+	.opcoes label { min-height: 38px; }
+}
